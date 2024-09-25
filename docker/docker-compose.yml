@@ -1,0 +1,54 @@
+services:
+    # image project
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ../src:/var/www
+        depends_on:
+            - nginx
+            - mysql
+        networks:
+            - onfly
+
+    # nginx
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "8989:80"
+        volumes:
+            - ../src:/var/www
+            - ./nginx/:/etc/nginx/conf.d/
+            - ./logs/nginx:/var/log/nginx
+            - ./logs/xdebug:/var/log/xdebug
+        networks:
+            - onfly
+
+    # db mysql
+    mysql:
+        image: mysql:8.4
+        platform: linux/x86_64
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: db_onfly
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_ROOT_USER: root
+            MYSQL_PASSWORD: pass
+            MYSQL_USER: user
+        volumes:
+            - ../.docker/mysql/dbdata:/var/lib/mysql
+        ports:
+            - "3306:3306"
+        networks:
+            - onfly
+
+networks:
+    onfly:
+        driver: bridge
+
+# Set project name
+name: api-expenses-onfly
