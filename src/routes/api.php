@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Route;
 // Login Route
 Route::post('/login', [LoginController::class, 'authenticate']);
 
-Route::get("/", function () {
-    return 'root';
+Route::middleware('auth:sanctum')->group(function () {
+    Route::apiResource('/users', UserController::class);
 });
-
-Route::apiResource('/users', UserController::class);

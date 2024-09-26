@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Resources\UserResource;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,7 +13,7 @@ class LoginController extends Controller
     /**
      * Handle an authentication attempt.
      */
-    public function authenticate(LoginRequest $request): JsonResource
+    public function authenticate(LoginRequest $request): JsonResource|JsonResponse
     {
         // Store the credentials from request
         $credentials = $request->only('email', 'password');
