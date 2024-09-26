@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Expense;
+use App\Notifications\ExpenseCreated;
 use App\Repositories\Contracts\ExpenseRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -19,7 +20,11 @@ class ExpenseService
 
     public function create(array $data): Expense
     {
-        return $this->repository->create($data);
+        $expense = $this->repository->create($data);
+        $user = $expense->user;
+
+        $user->notify(new ExpenseCreated($expense));
+        return $expense;
     }
 
     public function getById(string $id): Expense
