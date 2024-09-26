@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Repositories\Contracts\ExpenseRepositoryInterface;
 use App\Repositories\Contracts\UserRepositoryInterface;
+use App\Repositories\EloquentORM\ExpenseEloquentORM;
 use App\Repositories\EloquentORM\UserEloquentORM;
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +19,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             UserRepositoryInterface::class,
             UserEloquentORM::class
+        );
+        $this->app->bind(
+            ExpenseRepositoryInterface::class,
+            ExpenseEloquentORM::class
         );
     }
 

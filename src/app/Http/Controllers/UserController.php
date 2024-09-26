@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\User\StoreUpdateRequest;
+use App\Http\Requests\Users\StoreUpdateRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Services\UserService;
@@ -14,7 +14,7 @@ class UserController
 {
 
     /**
-     * @param StoreUpdateRequest $request
+     * @param UserService $service
      */
     public function __construct(
         protected UserService $service
