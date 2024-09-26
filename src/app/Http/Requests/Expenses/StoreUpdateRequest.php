@@ -4,7 +4,7 @@ namespace App\Http\Requests\Expenses;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateExpenseRequest extends FormRequest
+class StoreUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.

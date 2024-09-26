@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Expenses\StoreUpdateExpenseRequest;
+use App\Http\Requests\Expenses\StoreUpdateRequest;
 use App\Http\Resources\ExpenseResource;
-use App\Models\Expense;
 use App\Services\ExpenseService;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ExpenseController extends Controller
@@ -31,7 +29,7 @@ class ExpenseController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreUpdateExpenseRequest $request): ExpenseResource
+    public function store(StoreUpdateRequest $request): ExpenseResource
     {
         // Merge expense data sent from request with user data (can be a DTO in the future) 
         $expenseRequest = array_merge(
@@ -60,7 +58,7 @@ class ExpenseController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreUpdateExpenseRequest $request, string $id)
+    public function update(StoreUpdateRequest $request, string $id)
     {
         $expenseToBeUpdated = $this->service->getById($id);
         // Check if user has authorization to update the expense passed
