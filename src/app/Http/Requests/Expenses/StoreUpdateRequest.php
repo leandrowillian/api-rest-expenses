@@ -16,7 +16,7 @@ class StoreUpdateRequest extends FormRequest
         $rules = [
             'description' => ['required','max:191'],
             'date' => ['required','date','before_or_equal:today'],
-            'amount' => ['required','numeric','min:0'],
+            'amount' => ['required','numeric','min:0', 'regex:/^\d+(\.\d{1,2})?$/'],
         ];
 
         return $rules;
